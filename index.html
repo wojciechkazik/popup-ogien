@@ -5,32 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Popup - Strefa Paleniska</title>
     <style>
-        * {
+        /* Reset marginesów, paddingów i ustawienie box-sizing - WZOROWANE NA KALKULATORZE */
+        html, body {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: transparent;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
             overflow-x: hidden;
         }
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFFFFF;
+            padding: 10px;
+        }
 
-        .popup {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 100%);
-            border-radius: 20px;
-            max-width: 500px;
+        .container {
+            max-width: none;
             width: 100%;
-            position: relative;
-            overflow: hidden;
+            margin: 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 100%);
+            padding: 40px 30px 30px;
+            border-radius: 20px;
+            /* Dodany cień dookoła - WZOROWANE NA KALKULATORZE */
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
         .fire-animation {
@@ -63,12 +67,6 @@
             animation: flicker 1.5s infinite alternate;
         }
 
-        .popup-content {
-            padding: 40px 30px 30px;
-            text-align: center;
-            position: relative;
-        }
-
         .urgency-badge {
             background: linear-gradient(45deg, #ff4444, #cc0000);
             color: white;
@@ -84,7 +82,7 @@
             box-shadow: 0 4px 15px rgba(255, 68, 68, 0.4);
         }
 
-        .headline {
+        h1 {
             font-size: 28px;
             font-weight: bold;
             margin-bottom: 15px;
@@ -170,41 +168,28 @@
             font-weight: bold;
         }
 
-        .cta-button {
+        /* BUTTON STYLE WZOROWANY NA KALKULATORZE */
+        button {
+            width: 100%;
+            padding: 18px 40px;
             background: linear-gradient(45deg, #ff6b35, #ff4500);
             color: white;
+            font-weight: bold;
             border: none;
-            padding: 18px 40px;
             border-radius: 50px;
             font-size: 18px;
-            font-weight: bold;
             cursor: pointer;
-            width: 100%;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
             margin: 25px 0 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
             position: relative;
             overflow: hidden;
         }
 
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.6s;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        .cta-button:hover {
+        button:hover {
             transform: translateY(-2px);
             box-shadow: 0 12px 35px rgba(255, 107, 53, 0.6);
         }
@@ -279,21 +264,17 @@
             75% { transform: rotate(-2deg); }
         }
 
-        /* Responsywność dla embed */
+        /* RESPONSYWNOŚĆ WZOROWANA NA KALKULATORZE */
         @media (max-width: 480px) {
             body {
                 padding: 15px;
             }
             
-            .popup {
-                max-width: 100%;
-            }
-            
-            .popup-content {
+            .container {
                 padding: 30px 20px 20px;
             }
             
-            .headline {
+            h1 {
                 font-size: 24px;
             }
             
@@ -308,11 +289,11 @@
         }
 
         @media (max-width: 360px) {
-            .popup-content {
+            .container {
                 padding: 25px 15px 15px;
             }
             
-            .headline {
+            h1 {
                 font-size: 22px;
             }
             
@@ -320,84 +301,76 @@
                 font-size: 14px;
             }
             
-            .cta-button {
+            button {
                 padding: 15px 30px;
                 font-size: 16px;
             }
         }
-
-        /* Auto-height dla parent */
-        html, body {
-            height: auto;
-            min-height: 100vh;
-        }
     </style>
 </head>
 <body>
-    <div class="popup">
+    <div class="container">
         <div class="fire-animation">
             <div class="flame"></div>
         </div>
         
-        <div class="popup-content">
-            <div class="urgency-badge">⚡ Oferta Limitowana</div>
-            
-            <h1 class="headline">Stwórz Wymarzoną Strefę Ogniska!</h1>
-            <p class="subheadline">20 gotowych projektów + kompletny przewodnik realizacji</p>
-            
-            <div class="social-proof">
-                <div class="stars">★★★★★</div>
-                <div class="social-proof-text"><strong>847 właścicieli ogrodów</strong> już stworzyło swoją idealną strefę!</div>
-                <div class="testimonial">"Dzięki tym projektom zaoszczędziłem 3000 zł i uniknąłem kosztownych błędów!" - Marek K.</div>
-            </div>
-            
-            <div class="benefits">
-                <div class="benefit-item">
-                    <span class="check-icon">✓</span>
-                    <span>20 gotowych projektów palenisk</span>
-                </div>
-                <div class="benefit-item">
-                    <span class="check-icon">✓</span>
-                    <span>Szczegółowe plany techniczne</span>
-                </div>
-                <div class="benefit-item">
-                    <span class="check-icon">✓</span>
-                    <span>Kalkulacja kosztów dla każdego projektu</span>
-                </div>
-                <div class="benefit-item">
-                    <span class="check-icon">✓</span>
-                    <span>Przewodnik krok po kroku</span>
-                </div>
-                <div class="benefit-item">
-                    <span class="check-icon">✓</span>
-                    <span>Lista materiałów i narzędzi</span>
-                </div>
-            </div>
-            
-            <div class="price-section">
-                <div class="discount-badge">🔥 TYLKO 15 MINUT!</div>
-                <div>
-                    <span class="price-old">400,00 zł</span>
-                    <span class="price-new">280,00 zł</span>
-                </div>
-                <div class="savings">💰 Oszczędzasz 120 zł!</div>
-                
-                <div class="timer">
-                    <div class="timer-unit">
-                        <span class="timer-number" id="minutes">15</span>
-                        <span class="timer-label">min</span>
-                    </div>
-                    <div class="timer-unit">
-                        <span class="timer-number" id="seconds">00</span>
-                        <span class="timer-label">sek</span>
-                    </div>
-                </div>
-            </div>
-            
-            <button class="cta-button" onclick="handlePurchase()">
-                🔥 Pobieram za 280 zł
-            </button>
+        <div class="urgency-badge">⚡ Oferta Limitowana</div>
+        
+        <h1>Stwórz Wymarzoną Strefę Ogniska!</h1>
+        <p class="subheadline">20 gotowych projektów + kompletny przewodnik realizacji</p>
+        
+        <div class="social-proof">
+            <div class="stars">★★★★★</div>
+            <div class="social-proof-text"><strong>847 właścicieli ogrodów</strong> już stworzyło swoją idealną strefę!</div>
+            <div class="testimonial">"Dzięki tym projektom zaoszczędziłem 3000 zł i uniknąłem kosztownych błędów!" - Marek K.</div>
         </div>
+        
+        <div class="benefits">
+            <div class="benefit-item">
+                <span class="check-icon">✓</span>
+                <span>20 gotowych projektów palenisk</span>
+            </div>
+            <div class="benefit-item">
+                <span class="check-icon">✓</span>
+                <span>Szczegółowe plany techniczne</span>
+            </div>
+            <div class="benefit-item">
+                <span class="check-icon">✓</span>
+                <span>Kalkulacja kosztów dla każdego projektu</span>
+            </div>
+            <div class="benefit-item">
+                <span class="check-icon">✓</span>
+                <span>Przewodnik krok po kroku</span>
+            </div>
+            <div class="benefit-item">
+                <span class="check-icon">✓</span>
+                <span>Lista materiałów i narzędzi</span>
+            </div>
+        </div>
+        
+        <div class="price-section">
+            <div class="discount-badge">🔥 TYLKO 15 MINUT!</div>
+            <div>
+                <span class="price-old">400,00 zł</span>
+                <span class="price-new">280,00 zł</span>
+            </div>
+            <div class="savings">💰 Oszczędzasz 120 zł!</div>
+            
+            <div class="timer">
+                <div class="timer-unit">
+                    <span class="timer-number" id="minutes">15</span>
+                    <span class="timer-label">min</span>
+                </div>
+                <div class="timer-unit">
+                    <span class="timer-number" id="seconds">00</span>
+                    <span class="timer-label">sek</span>
+                </div>
+            </div>
+        </div>
+        
+        <button onclick="handlePurchase()">
+            🔥 Pobieram za 280 zł
+        </button>
     </div>
 
     <script>
@@ -437,22 +410,22 @@
             window.open('https://www.naffy.io/magdalena-kazimierowicz/20-gotowych-projektow-strefy-paleniska-do-kazdego-ogrodu-5-bonusowych-aranzacji-stref-apt', '_blank');
         }
 
-        // Komunikacja z parent frame (dla lepszego embed)
+        // FUNKCJA WYSYŁANIA WYSOKOŚCI - WZOROWANA NA KALKULATORZE
         function sendHeightToParent() {
-            const height = document.body.scrollHeight;
-            if (window.parent !== window) {
-                window.parent.postMessage({
-                    type: 'resize',
-                    height: height
-                }, '*');
-            }
+            const bodyHeight = document.body.scrollHeight;
+            const docHeight = document.documentElement.scrollHeight;
+            const height = Math.max(bodyHeight, docHeight);
+            window.parent.postMessage({ iframeHeight: height }, '*');
         }
 
-        // Wyślij wysokość po załadowaniu
+        // WYWOŁANIA WZOROWANE NA KALKULATORZE
         window.addEventListener('load', sendHeightToParent);
-        
-        // Wyślij wysokość po zmianie rozmiaru
         window.addEventListener('resize', sendHeightToParent);
+
+        // Wysyłanie wysokości także po kliknięciach
+        document.addEventListener('click', function() {
+            setTimeout(sendHeightToParent, 300);
+        });
     </script>
 </body>
 </html>
