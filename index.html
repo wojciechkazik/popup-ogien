@@ -1,1 +1,403 @@
+<!-- ZAWARTOŚĆ DO WKLEJENIA W POPUP COMPONENT -->
+<style>
+    .fire-popup-content {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 100%);
+        border-radius: 20px;
+        max-width: 500px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        color: white;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
 
+    .fire-animation {
+        position: absolute;
+        top: -50px;
+        right: -30px;
+        width: 120px;
+        height: 120px;
+        opacity: 0.1;
+    }
+
+    .flame {
+        width: 60px;
+        height: 80px;
+        background: radial-gradient(circle, #ff6b35 0%, #ff4500 50%, #cc3300 100%);
+        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        animation: flicker 2s infinite alternate;
+        position: relative;
+    }
+
+    .flame::before {
+        content: '';
+        position: absolute;
+        top: 10px;
+        left: 15px;
+        width: 30px;
+        height: 50px;
+        background: radial-gradient(circle, #ffaa44 0%, #ff6600 100%);
+        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        animation: flicker 1.5s infinite alternate;
+    }
+
+    .popup-inner-content {
+        padding: 40px 30px 30px;
+        text-align: center;
+        position: relative;
+    }
+
+    .urgency-badge {
+        background: linear-gradient(45deg, #ff4444, #cc0000);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 25px;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-block;
+        margin-bottom: 20px;
+        animation: pulse 2s infinite;
+        box-shadow: 0 4px 15px rgba(255, 68, 68, 0.4);
+    }
+
+    .headline {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        line-height: 1.2;
+        background: linear-gradient(45deg, #ff8c42, #ffa500);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .subheadline {
+        font-size: 16px;
+        color: #cccccc;
+        margin-bottom: 25px;
+        line-height: 1.4;
+    }
+
+    .benefits {
+        text-align: left;
+        margin: 25px 0;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+    }
+
+    .benefit-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        font-size: 14px;
+        color: #e0e0e0;
+    }
+
+    .benefit-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .check-icon {
+        color: #4CAF50;
+        margin-right: 12px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .price-section {
+        background: rgba(255, 140, 66, 0.2);
+        padding: 20px;
+        border-radius: 15px;
+        margin: 25px 0;
+        border: 2px solid #ff8c42;
+    }
+
+    .discount-badge {
+        background: #ff4444;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 10px;
+        animation: wiggle 3s infinite;
+    }
+
+    .price-old {
+        text-decoration: line-through;
+        color: #999;
+        font-size: 18px;
+        margin-right: 10px;
+    }
+
+    .price-new {
+        color: #4CAF50;
+        font-size: 32px;
+        font-weight: bold;
+    }
+
+    .savings {
+        color: #4CAF50;
+        font-size: 16px;
+        margin-top: 8px;
+        font-weight: bold;
+    }
+
+    .cta-button {
+        background: linear-gradient(45deg, #ff6b35, #ff4500);
+        color: white;
+        border: none;
+        padding: 18px 40px;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+        margin: 25px 0 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.6s;
+    }
+
+    .cta-button:hover::before {
+        left: 100%;
+    }
+
+    .cta-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(255, 107, 53, 0.6);
+    }
+
+    .timer {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 20px 0;
+    }
+
+    .timer-unit {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 10px;
+        border-radius: 10px;
+        min-width: 50px;
+    }
+
+    .timer-number {
+        font-size: 20px;
+        font-weight: bold;
+        color: #ff8c42;
+        display: block;
+    }
+
+    .timer-label {
+        font-size: 10px;
+        color: #ccc;
+        text-transform: uppercase;
+    }
+
+    .guarantee {
+        font-size: 12px;
+        color: #999;
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .social-proof {
+        background: rgba(76, 175, 80, 0.2);
+        padding: 15px;
+        border-radius: 10px;
+        margin: 20px 0;
+        border-left: 4px solid #4CAF50;
+    }
+
+    .social-proof-text {
+        font-size: 14px;
+        color: #e0e0e0;
+        margin-bottom: 8px;
+    }
+
+    .stars {
+        color: #ffa500;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .testimonial {
+        font-size: 12px;
+        color: #ccc;
+        font-style: italic;
+    }
+
+    @keyframes flicker {
+        0% { transform: scale(1) rotate(-2deg); }
+        100% { transform: scale(1.1) rotate(2deg); }
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+
+    @keyframes wiggle {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(2deg); }
+        75% { transform: rotate(-2deg); }
+    }
+
+    @media (max-width: 480px) {
+        .fire-popup-content {
+            margin: 10px;
+            max-width: 95%;
+        }
+        
+        .popup-inner-content {
+            padding: 30px 20px 20px;
+        }
+        
+        .headline {
+            font-size: 24px;
+        }
+        
+        .timer {
+            gap: 10px;
+        }
+        
+        .timer-unit {
+            min-width: 40px;
+            padding: 8px;
+        }
+    }
+</style>
+
+<div class="fire-popup-content">
+    <div class="fire-animation">
+        <div class="flame"></div>
+    </div>
+    
+    <div class="popup-inner-content">
+        <div class="urgency-badge">⚡ Oferta Limitowana</div>
+        
+        <h1 class="headline">Stwórz Wymarzoną Strefę Ogniska!</h1>
+        <p class="subheadline">20 gotowych projektów + kompletny przewodnik realizacji</p>
+        
+        <div class="social-proof">
+            <div class="stars">★★★★★</div>
+            <div class="social-proof-text"><strong>847 właścicieli ogrodów</strong> już stworzyło swoją idealną strefę!</div>
+            <div class="testimonial">"Dzięki tym projektom zaoszczędziłem 3000 zł i uniknąłem kosztownych błędów!" - Marek K.</div>
+        </div>
+        
+        <div class="benefits">
+            <div class="benefit-item">
+                <span class="check-icon">✓</span>
+                <span>20 gotowych projektów palenisk</span>
+            </div>
+            <div class="benefit-item">
+                <span class="check-icon">✓</span>
+                <span>Szczegółowe plany techniczne</span>
+            </div>
+            <div class="benefit-item">
+                <span class="check-icon">✓</span>
+                <span>Kalkulacja kosztów dla każdego projektu</span>
+            </div>
+            <div class="benefit-item">
+                <span class="check-icon">✓</span>
+                <span>Przewodnik krok po kroku</span>
+            </div>
+            <div class="benefit-item">
+                <span class="check-icon">✓</span>
+                <span>Lista materiałów i narzędzi</span>
+            </div>
+        </div>
+        
+        <div class="price-section">
+            <div class="discount-badge">🔥 TYLKO 15 MINUT!</div>
+            <div>
+                <span class="price-old">400,00 zł</span>
+                <span class="price-new">280,00 zł</span>
+            </div>
+            <div class="savings">💰 Oszczędzasz 120 zł!</div>
+            
+            <div class="timer">
+                <div class="timer-unit">
+                    <span class="timer-number" id="popup-minutes">15</span>
+                    <span class="timer-label">min</span>
+                </div>
+                <div class="timer-unit">
+                    <span class="timer-number" id="popup-seconds">00</span>
+                    <span class="timer-label">sek</span>
+                </div>
+            </div>
+        </div>
+        
+        <button class="cta-button" onclick="handleFirePitPurchase()">
+            🔥 Pobieram za 280 zł
+        </button>
+    </div>
+</div>
+
+<script>
+    // Timer countdown dla popup (15 minut)
+    function updatePopupTimer() {
+        const minutesEl = document.getElementById('popup-minutes');
+        const secondsEl = document.getElementById('popup-seconds');
+        
+        if (!minutesEl || !secondsEl) return;
+        
+        let minutes = parseInt(minutesEl.textContent);
+        let seconds = parseInt(secondsEl.textContent);
+        
+        seconds--;
+        
+        if (seconds < 0) {
+            seconds = 59;
+            minutes--;
+            
+            if (minutes < 0) {
+                // Timer skończony - możesz dodać akcję
+                minutes = 0;
+                seconds = 0;
+                clearInterval(popupTimerInterval);
+                // Opcjonalnie: zamknij popup lub pokaż komunikat
+                return;
+            }
+        }
+        
+        minutesEl.textContent = minutes.toString().padStart(2, '0');
+        secondsEl.textContent = seconds.toString().padStart(2, '0');
+    }
+    
+    // Start timer
+    if (typeof popupTimerInterval === 'undefined') {
+        var popupTimerInterval = setInterval(updatePopupTimer, 1000);
+    }
+    
+    function handleFirePitPurchase() {
+        // Tutaj dodasz logikę przekierowania do płatności
+        alert('Przekierowanie do płatności z kodem OGNISKO...');
+        // window.location.href = 'https://twoja-strona-platnosci.pl?code=OGNISKO';
+    }
+</script>
