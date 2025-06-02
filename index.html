@@ -1,691 +1,507 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Popup - Strefa Paleniska</title>
-    <style>
-        /* Reset marginesów, paddingów i ustawienie box-sizing */
-        html, body {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            overflow-x: hidden;
-            height: auto;
-        }
-        *, *::before, *::after {
-            box-sizing: inherit;
+<!-- KOD ZOPTYMALIZOWANY SPECJALNIE DLA POPUP COMPONENT DIVHUNT -->
+
+<style>
+    /* Reset dla popup component DivHunt */
+    .divhunt-popup-content {
+        width: 100% !important;
+        max-width: none !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    .fire-popup-wrapper {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 100%);
+        border-radius: 20px;
+        color: white;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        overflow: hidden;
+        min-width: 320px;
+    }
+
+    /* Header Section */
+    .fire-header {
+        padding: 20px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .fire-headline-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+    }
+
+    .fire-icon {
+        font-size: 28px;
+        animation: fire-pulse 2s infinite;
+    }
+
+    .fire-title {
+        font-size: 26px;
+        font-weight: bold;
+        margin: 0;
+        line-height: 1.1;
+        background: linear-gradient(45deg, #ff8c42, #ffa500);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .fire-subtitle {
+        font-size: 16px;
+        color: #cccccc;
+        margin: 0;
+        line-height: 1.3;
+    }
+
+    /* Content Section */
+    .fire-content {
+        padding: 0 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Benefits Grid */
+    .fire-benefits {
+        margin: 20px 0;
+    }
+
+    .fire-benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px 16px;
+        background: rgba(255, 255, 255, 0.08);
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .fire-benefit-item {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: #e0e0e0;
+        line-height: 1.3;
+    }
+
+    .fire-check {
+        color: #4CAF50;
+        margin-right: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+
+    /* Social Proof */
+    .fire-social {
+        background: rgba(76, 175, 80, 0.15);
+        padding: 16px;
+        border-radius: 12px;
+        margin: 20px 0;
+        border-left: 4px solid #4CAF50;
+        text-align: center;
+    }
+
+    .fire-stars {
+        color: #ffa500;
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .fire-social-text {
+        color: #e0e0e0;
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .fire-testimonial {
+        color: #ccc;
+        font-style: italic;
+        font-size: 12px;
+    }
+
+    /* Price Section */
+    .fire-price-section {
+        background: rgba(255, 140, 66, 0.15);
+        padding: 20px;
+        border-radius: 12px;
+        margin: 20px 0;
+        border: 2px solid #ff8c42;
+        text-align: center;
+    }
+
+    .fire-discount-badge {
+        background: #ff4444;
+        color: white;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 12px;
+        animation: fire-wiggle 3s infinite;
+    }
+
+    .fire-price-display {
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+
+    .fire-price-old {
+        text-decoration: line-through;
+        color: #999;
+        font-size: 20px;
+    }
+
+    .fire-price-new {
+        color: #4CAF50;
+        font-size: 32px;
+        font-weight: bold;
+    }
+
+    .fire-code-badge {
+        background: rgba(255,255,255,0.1);
+        padding: 8px 16px;
+        border-radius: 10px;
+        font-size: 12px;
+        color: #ffa500;
+        font-weight: bold;
+        display: inline-block;
+        border: 1px solid rgba(255,165,0,0.3);
+        margin-bottom: 16px;
+    }
+
+    .fire-timer {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .fire-timer-unit {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 8px 12px;
+        border-radius: 8px;
+        min-width: 40px;
+    }
+
+    .fire-timer-number {
+        font-size: 18px;
+        font-weight: bold;
+        color: #ff8c42;
+        display: block;
+        line-height: 1;
+    }
+
+    .fire-timer-label {
+        font-size: 10px;
+        color: #ccc;
+        text-transform: uppercase;
+        line-height: 1;
+    }
+
+    /* CTA Section */
+    .fire-cta {
+        padding: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .fire-button {
+        width: 100%;
+        padding: 16px 32px;
+        background: linear-gradient(45deg, #ff6b35, #ff4500);
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 30px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+    }
+
+    .fire-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 107, 53, 0.6);
+    }
+
+    /* Animacje */
+    @keyframes fire-pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    @keyframes fire-wiggle {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(2deg); }
+        75% { transform: rotate(-2deg); }
+    }
+
+    /* Responsywność dla popup DivHunt */
+    
+    /* Małe popup'y (mobile) */
+    @media (max-width: 480px) {
+        .fire-popup-wrapper {
+            border-radius: 15px;
         }
         
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #FFFFFF;
-            padding: 8px;
+        .fire-header {
+            padding: 16px;
         }
-
-        .container {
-            max-width: none;
-            width: 100%;
-            margin: 0;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 100%);
-            border-radius: 16px;
-            color: white;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 100%;
-        }
-
-        /* Header Section */
-        .header-section {
-            padding: 16px 16px 8px;
-            text-align: center;
-            position: relative;
-        }
-
-        .headline-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .fire-icon {
-            font-size: 24px;
-            animation: pulse 2s infinite;
-        }
-
-        h1 {
+        
+        .fire-title {
             font-size: 20px;
-            font-weight: bold;
-            margin: 0;
-            line-height: 1.1;
-            background: linear-gradient(45deg, #ff8c42, #ffa500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
-
-        .subheadline {
-            font-size: 12px;
-            color: #cccccc;
-            margin: 6px 0 12px 0;
-            line-height: 1.2;
-        }
-
-        /* Social Proof - Kompakt */
-        .social-proof {
-            background: rgba(76, 175, 80, 0.15);
-            padding: 8px 12px;
-            border-radius: 8px;
-            margin: 0 16px 12px;
-            border-left: 3px solid #4CAF50;
-            font-size: 10px;
-            text-align: center;
-        }
-
-        .stars {
-            color: #ffa500;
-            font-size: 12px;
-            margin-bottom: 2px;
-        }
-
-        .social-text {
-            color: #e0e0e0;
-            margin-bottom: 2px;
-        }
-
-        .testimonial {
-            color: #ccc;
-            font-style: italic;
-            font-size: 9px;
-        }
-
-        /* Benefits Grid - 2 kolumny */
-        .benefits-section {
-            padding: 0 16px;
-            margin-bottom: 12px;
-            text-align: center;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4px 8px;
-            background: rgba(255, 255, 255, 0.08);
-            padding: 8px;
-            border-radius: 8px;
-            justify-items: center;
-        }
-
-        .benefit-item {
-            display: flex;
-            align-items: center;
-            font-size: 9px;
-            color: #e0e0e0;
-            line-height: 1.2;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .check-icon {
-            color: #4CAF50;
-            margin-right: 4px;
-            font-size: 10px;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        /* Price Section - Horizontal Layout */
-        .price-section {
-            background: rgba(255, 140, 66, 0.15);
-            padding: 12px 16px;
-            margin: 0 16px 12px;
-            border-radius: 10px;
-            border: 1px solid #ff8c42;
-            text-align: center;
-        }
-
-        .price-row {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-
-        .price-left {
-            text-align: center;
-        }
-
-        .discount-badge {
-            background: #ff4444;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 8px;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 4px;
-        }
-
-        .price-display {
-            display: flex;
-            align-items: baseline;
-            gap: 6px;
-            justify-content: center;
-        }
-
-        .price-old {
-            text-decoration: line-through;
-            color: #999;
-            font-size: 12px;
-        }
-
-        .price-new {
-            color: #4CAF50;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .timer {
-            display: flex;
-            gap: 4px;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .timer-unit {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 4px 6px;
-            border-radius: 6px;
-            min-width: 24px;
-        }
-
-        .timer-number {
-            font-size: 12px;
-            font-weight: bold;
-            color: #ff8c42;
-            display: block;
-            line-height: 1;
-        }
-
-        .timer-label {
-            font-size: 7px;
-            color: #ccc;
-            text-transform: uppercase;
-            line-height: 1;
-        }
-
-        /* Code Section */
-        .code-section {
-            text-align: center;
-            margin-bottom: 12px;
-        }
-
-        .code-badge {
-            background: rgba(255,255,255,0.1);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 10px;
-            color: #ffa500;
-            font-weight: bold;
-            display: inline-block;
-            border: 1px solid rgba(255,165,0,0.3);
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 0 16px 16px;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px 20px;
-            background: linear-gradient(45deg, #ff6b35, #ff4500);
-            color: white;
-            font-weight: bold;
-            border: none;
-            border-radius: 25px;
+        
+        .fire-subtitle {
             font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
         }
+        
+        .fire-content {
+            padding: 0 16px;
+        }
+        
+        .fire-benefits-grid {
+            grid-template-columns: 1fr;
+            gap: 8px;
+            padding: 16px;
+        }
+        
+        .fire-benefit-item {
+            font-size: 12px;
+        }
+        
+        .fire-price-new {
+            font-size: 24px;
+        }
+        
+        .fire-timer-number {
+            font-size: 16px;
+        }
+        
+        .fire-button {
+            font-size: 16px;
+            padding: 14px 28px;
+        }
+        
+        .fire-cta {
+            padding: 16px;
+        }
+    }
 
-        button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
+    /* Średnie popup'y */
+    @media (min-width: 481px) and (max-width: 768px) {
+        .fire-title {
+            font-size: 24px;
         }
+        
+        .fire-benefits-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .fire-price-new {
+            font-size: 28px;
+        }
+    }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+    /* Duże popup'y */
+    @media (min-width: 769px) {
+        .fire-popup-wrapper {
+            border-radius: 25px;
         }
+        
+        .fire-header {
+            padding: 30px;
+        }
+        
+        .fire-title {
+            font-size: 32px;
+        }
+        
+        .fire-subtitle {
+            font-size: 18px;
+        }
+        
+        .fire-content {
+            padding: 0 30px;
+        }
+        
+        .fire-benefits-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 20px;
+            padding: 24px;
+        }
+        
+        .fire-benefit-item {
+            font-size: 16px;
+        }
+        
+        .fire-price-new {
+            font-size: 38px;
+        }
+        
+        .fire-timer-number {
+            font-size: 22px;
+        }
+        
+        .fire-button {
+            font-size: 20px;
+            padding: 18px 40px;
+        }
+        
+        .fire-cta {
+            padding: 30px;
+        }
+    }
 
-        /* Responsywność dla większych urządzeń */
-        @media (min-width: 400px) {
-            .container {
-                border-radius: 20px;
-            }
-            
-            .header-section {
-                padding: 20px 20px 12px;
-            }
-            
-            .headline-container {
-                gap: 12px;
-            }
-            
-            .fire-icon {
-                font-size: 28px;
-            }
-            
-            h1 {
-                font-size: 24px;
-            }
-            
-            .subheadline {
-                font-size: 14px;
-            }
-            
-            .benefits-grid {
-                padding: 12px;
-            }
-            
-            .benefit-item {
-                font-size: 11px;
-            }
-            
-            .price-section {
-                padding: 16px 20px;
-                margin: 0 20px 16px;
-            }
-            
-            .price-new {
-                font-size: 24px;
-            }
-            
-            .timer-unit {
-                padding: 6px 8px;
-                min-width: 30px;
-            }
-            
-            .timer-number {
-                font-size: 14px;
-            }
-            
-            .cta-section {
-                padding: 0 20px 20px;
-            }
-            
-            button {
-                padding: 16px 30px;
-                font-size: 16px;
-            }
+    /* Bardzo duże popup'y */
+    @media (min-width: 1200px) {
+        .fire-title {
+            font-size: 36px;
         }
+        
+        .fire-subtitle {
+            font-size: 20px;
+        }
+        
+        .fire-benefits-grid {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        
+        .fire-price-new {
+            font-size: 42px;
+        }
+    }
+</style>
 
-        /* Dla dużych kontenerów - NOWE BREAKPOINTY */
-        @media (min-width: 600px) {
-            .header-section {
-                padding: 30px 40px 20px;
-            }
-            
-            .fire-icon {
-                font-size: 32px;
-            }
-            
-            h1 {
-                font-size: 32px;
-            }
-            
-            .subheadline {
-                font-size: 18px;
-                margin: 10px 0 20px 0;
-            }
-            
-            .social-proof {
-                margin: 0 40px 20px;
-                padding: 16px 20px;
-                font-size: 12px;
-            }
-            
-            .stars {
-                font-size: 16px;
-            }
-            
-            .social-text {
-                font-size: 14px;
-            }
-            
-            .testimonial {
-                font-size: 11px;
-            }
-            
-            .benefits-section {
-                padding: 0 40px;
-                margin-bottom: 20px;
-            }
-            
-            .benefits-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 12px 16px;
-                padding: 20px;
-            }
-            
-            .benefit-item {
-                font-size: 14px;
-            }
-            
-            .check-icon {
-                font-size: 16px;
-                margin-right: 8px;
-            }
-            
-            .price-section {
-                padding: 24px 40px;
-                margin: 0 40px 20px;
-            }
-            
-            .discount-badge {
-                font-size: 12px;
-                padding: 6px 16px;
-            }
-            
-            .price-new {
-                font-size: 36px;
-            }
-            
-            .price-old {
-                font-size: 20px;
-            }
-            
-            .timer-unit {
-                padding: 10px 12px;
-                min-width: 50px;
-            }
-            
-            .timer-number {
-                font-size: 20px;
-            }
-            
-            .timer-label {
-                font-size: 10px;
-            }
-            
-            .cta-section {
-                padding: 0 40px 30px;
-            }
-            
-            button {
-                font-size: 20px;
-                padding: 20px 50px;
-            }
-            
-            .code-badge {
-                font-size: 12px !important;
-                padding: 6px 16px !important;
-            }
-        }
-
-        /* Dla bardzo dużych kontenerów 1000px+ */
-        @media (min-width: 1000px) {
-            .header-section {
-                padding: 40px 60px 30px;
-            }
-            
-            .fire-icon {
-                font-size: 38px;
-            }
-            
-            h1 {
-                font-size: 38px;
-            }
-            
-            .subheadline {
-                font-size: 20px;
-                margin: 12px 0 25px 0;
-            }
-            
-            .social-proof, .price-section {
-                margin-left: 60px;
-                margin-right: 60px;
-            }
-            
-            .benefits-section {
-                padding: 0 60px;
-            }
-            
-            .benefits-grid {
-                grid-template-columns: 1fr 1fr 1fr;
-                gap: 16px 20px;
-                padding: 30px;
-            }
-            
-            .benefit-item {
-                font-size: 16px;
-            }
-            
-            .price-new {
-                font-size: 42px;
-            }
-            
-            .timer-number {
-                font-size: 24px;
-            }
-            
-            .cta-section {
-                padding: 0 60px 40px;
-            }
-            
-            button {
-                font-size: 22px;
-                padding: 24px 60px;
-            }
-        }
-
-        /* Dla ekstremalnie małych urządzeń */
-        @media (max-width: 280px) {
-            body {
-                padding: 4px;
-            }
-            
-            .header-section {
-                padding: 12px 12px 6px;
-            }
-            
-            h1 {
-                font-size: 16px;
-            }
-            
-            .subheadline {
-                font-size: 10px;
-            }
-            
-            .benefits-grid {
-                grid-template-columns: 1fr;
-                gap: 2px;
-                padding: 6px;
-                justify-items: center;
-            }
-            
-            .benefit-item {
-                font-size: 8px;
-            }
-            
-            .price-section {
-                padding: 8px 12px;
-                margin: 0 12px 8px;
-            }
-            
-            .price-section .code-badge {
-                font-size: 7px !important;
-                padding: 2px 6px !important;
-            }
-            
-            .price-new {
-                font-size: 16px;
-            }
-            
-            .timer-unit {
-                padding: 3px 4px;
-                min-width: 20px;
-            }
-            
-            .timer-number {
-                font-size: 10px;
-            }
-            
-            .timer-label {
-                font-size: 6px;
-            }
-            
-            .cta-section {
-                padding: 0 12px 12px;
-            }
-            
-            button {
-                padding: 10px 16px;
-                font-size: 12px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header-section">
-            <div class="headline-container">
-                <span class="fire-icon">🔥</span>
-                <h1>Stwórz Wymarzoną Strefę Ogniska!</h1>
-            </div>
-            <p class="subheadline">20 gotowych projektów + kompletny przewodnik realizacji</p>
+<div class="fire-popup-wrapper">
+    <!-- Header -->
+    <div class="fire-header">
+        <div class="fire-headline-container">
+            <span class="fire-icon">🔥</span>
+            <h1 class="fire-title">Stwórz Wymarzoną Strefę Ogniska!</h1>
         </div>
+        <p class="fire-subtitle">20 gotowych projektów + kompletny przewodnik realizacji</p>
+    </div>
 
+    <!-- Content -->
+    <div class="fire-content">
         <!-- Benefits -->
-        <div class="benefits-section">
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <span class="check-icon">✓</span>
-                    <span>20 gotowych projektów</span>
+        <div class="fire-benefits">
+            <div class="fire-benefits-grid">
+                <div class="fire-benefit-item">
+                    <span class="fire-check">✓</span>
+                    <span>20 gotowych projektów palenisk</span>
                 </div>
-                <div class="benefit-item">
-                    <span class="check-icon">✓</span>
-                    <span>Plany techniczne</span>
+                <div class="fire-benefit-item">
+                    <span class="fire-check">✓</span>
+                    <span>Szczegółowe plany techniczne</span>
                 </div>
-                <div class="benefit-item">
-                    <span class="check-icon">✓</span>
-                    <span>Kalkulacja kosztów</span>
+                <div class="fire-benefit-item">
+                    <span class="fire-check">✓</span>
+                    <span>Kalkulacja kosztów projektów</span>
                 </div>
-                <div class="benefit-item">
-                    <span class="check-icon">✓</span>
-                    <span>Przewodnik realizacji</span>
+                <div class="fire-benefit-item">
+                    <span class="fire-check">✓</span>
+                    <span>Przewodnik krok po kroku</span>
                 </div>
-                <div class="benefit-item">
-                    <span class="check-icon">✓</span>
-                    <span>Lista materiałów</span>
+                <div class="fire-benefit-item">
+                    <span class="fire-check">✓</span>
+                    <span>Lista materiałów i narzędzi</span>
                 </div>
             </div>
         </div>
 
         <!-- Social Proof -->
-        <div class="social-proof">
-            <div class="stars">★★★★★</div>
-            <div class="social-text"><strong>135 właścicieli ogrodów</strong> już stworzyło swoją idealną strefę!</div>
-            <div class="testimonial">"Zaoszczędziłem 3000 zł dzięki tym projektom!" - Marek K.</div>
+        <div class="fire-social">
+            <div class="fire-stars">★★★★★</div>
+            <div class="fire-social-text"><strong>135 właścicieli ogrodów</strong> już stworzyło swoją idealną strefę!</div>
+            <div class="fire-testimonial">"Zaoszczędziłem 3000 zł dzięki tym projektom!" - Marek K.</div>
         </div>
 
         <!-- Price & Timer -->
-        <div class="price-section">
-            <div class="price-row">
-                <div class="price-left">
-                    <div class="discount-badge">🔥 TYLKO 15 MINUT!</div>
-                    <div class="price-display">
-                        <span class="price-old">400,00 zł</span>
-                        <span class="price-new">280,00 zł</span>
-                    </div>
-                    <div class="code-badge" style="margin-top: 4px; font-size: 9px; padding: 3px 8px;">🎯 Kod: "OGNISKO" - 30% TANIEJ</div>
+        <div class="fire-price-section">
+            <div class="fire-discount-badge">🔥 TYLKO 15 MINUT!</div>
+            <div class="fire-price-display">
+                <span class="fire-price-old">400,00 zł</span>
+                <span class="fire-price-new">280,00 zł</span>
+            </div>
+            <div class="fire-code-badge">🎯 Kod: "OGNISKO" - 30% TANIEJ</div>
+            
+            <div class="fire-timer">
+                <div class="fire-timer-unit">
+                    <span class="fire-timer-number" id="fire-minutes">15</span>
+                    <span class="fire-timer-label">min</span>
                 </div>
-                <div class="timer">
-                    <div class="timer-unit">
-                        <span class="timer-number" id="minutes">15</span>
-                        <span class="timer-label">min</span>
-                    </div>
-                    <div class="timer-unit">
-                        <span class="timer-number" id="seconds">00</span>
-                        <span class="timer-label">sek</span>
-                    </div>
+                <div class="fire-timer-unit">
+                    <span class="fire-timer-number" id="fire-seconds">00</span>
+                    <span class="fire-timer-label">sek</span>
                 </div>
             </div>
         </div>
-
-        <!-- CTA -->
-        <div class="cta-section">
-            <button onclick="handlePurchase()">
-                🔥 Pobieram za 280 zł
-            </button>
-        </div>
     </div>
 
-    <script>
-        // Timer countdown
-        function updateTimer() {
-            const minutesEl = document.getElementById('minutes');
-            const secondsEl = document.getElementById('seconds');
+    <!-- CTA -->
+    <div class="fire-cta">
+        <button class="fire-button" onclick="handleFirePurchase()">
+            🔥 Pobieram za 280 zł
+        </button>
+    </div>
+</div>
+
+<script>
+    // Timer countdown
+    function updateFireTimer() {
+        const minutesEl = document.getElementById('fire-minutes');
+        const secondsEl = document.getElementById('fire-seconds');
+        
+        if (!minutesEl || !secondsEl) return;
+        
+        let minutes = parseInt(minutesEl.textContent);
+        let seconds = parseInt(secondsEl.textContent);
+        
+        seconds--;
+        
+        if (seconds < 0) {
+            seconds = 59;
+            minutes--;
             
-            if (!minutesEl || !secondsEl) return;
-            
-            let minutes = parseInt(minutesEl.textContent);
-            let seconds = parseInt(secondsEl.textContent);
-            
-            seconds--;
-            
-            if (seconds < 0) {
-                seconds = 59;
-                minutes--;
-                
-                if (minutes < 0) {
-                    minutes = 0;
-                    seconds = 0;
-                    clearInterval(timerInterval);
-                    return;
-                }
+            if (minutes < 0) {
+                minutes = 0;
+                seconds = 0;
+                clearInterval(fireTimerInterval);
+                return;
             }
-            
-            minutesEl.textContent = minutes.toString().padStart(2, '0');
-            secondsEl.textContent = seconds.toString().padStart(2, '0');
         }
         
-        // Start timer
-        const timerInterval = setInterval(updateTimer, 1000);
-        
-        function handlePurchase() {
-            // Przekierowanie na Twoją stronę zakupów
-            window.open('https://www.naffy.io/magdalena-kazimierowicz/20-gotowych-projektow-strefy-paleniska-do-kazdego-ogrodu-5-bonusowych-aranzacji-stref-apt', '_blank');
-        }
-
-        // FUNKCJA WYSYŁANIA WYSOKOŚCI
-        function sendHeightToParent() {
-            const bodyHeight = document.body.scrollHeight;
-            const docHeight = document.documentElement.scrollHeight;
-            const height = Math.max(bodyHeight, docHeight);
-            window.parent.postMessage({ iframeHeight: height }, '*');
-        }
-
-        // WYWOŁANIA
-        window.addEventListener('load', sendHeightToParent);
-        window.addEventListener('resize', sendHeightToParent);
-
-        // Wysyłanie wysokości także po kliknięciach
-        document.addEventListener('click', function() {
-            setTimeout(sendHeightToParent, 100);
-        });
-    </script>
-</body>
-</html>
+        minutesEl.textContent = minutes.toString().padStart(2, '0');
+        secondsEl.textContent = seconds.toString().padStart(2, '0');
+    }
+    
+    // Start timer
+    if (typeof fireTimerInterval === 'undefined') {
+        var fireTimerInterval = setInterval(updateFireTimer, 1000);
+    }
+    
+    function handleFirePurchase() {
+        // Przekierowanie na Twoją stronę zakupów
+        window.open('https://www.naffy.io/magdalena-kazimierowicz/20-gotowych-projektow-strefy-paleniska-do-kazdego-ogrodu-5-bonusowych-aranzacji-stref-apt', '_blank');
+    }
+</script>
