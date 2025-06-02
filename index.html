@@ -34,6 +34,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            min-height: 100%;
         }
 
         /* Header Section */
@@ -43,29 +44,23 @@
             position: relative;
         }
 
-        .fire-icon {
-            display: inline-block;
-            font-size: 24px;
-            margin-bottom: 8px;
-            animation: pulse 2s infinite;
+        .headline-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
-        .urgency-badge {
-            background: linear-gradient(45deg, #ff4444, #cc0000);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
-            display: inline-block;
-            margin-bottom: 8px;
+        .fire-icon {
+            font-size: 24px;
+            animation: pulse 2s infinite;
         }
 
         h1 {
             font-size: 20px;
             font-weight: bold;
-            margin: 0 0 6px 0;
+            margin: 0;
             line-height: 1.1;
             background: linear-gradient(45deg, #ff8c42, #ffa500);
             -webkit-background-clip: text;
@@ -76,7 +71,7 @@
         .subheadline {
             font-size: 12px;
             color: #cccccc;
-            margin: 0 0 12px 0;
+            margin: 6px 0 12px 0;
             line-height: 1.2;
         }
 
@@ -284,6 +279,14 @@
                 padding: 20px 20px 12px;
             }
             
+            .headline-container {
+                gap: 12px;
+            }
+            
+            .fire-icon {
+                font-size: 28px;
+            }
+            
             h1 {
                 font-size: 24px;
             }
@@ -328,39 +331,162 @@
             }
         }
 
-        /* Dla bardzo dużych kontenerów */
+        /* Dla dużych kontenerów - NOWE BREAKPOINTY */
         @media (min-width: 600px) {
+            .header-section {
+                padding: 30px 40px 20px;
+            }
+            
+            .fire-icon {
+                font-size: 32px;
+            }
+            
             h1 {
-                font-size: 28px;
-                margin-bottom: 8px;
+                font-size: 32px;
             }
             
             .subheadline {
+                font-size: 18px;
+                margin: 10px 0 20px 0;
+            }
+            
+            .social-proof {
+                margin: 0 40px 20px;
+                padding: 16px 20px;
+                font-size: 12px;
+            }
+            
+            .stars {
                 font-size: 16px;
-                margin-bottom: 16px;
+            }
+            
+            .social-text {
+                font-size: 14px;
+            }
+            
+            .testimonial {
+                font-size: 11px;
+            }
+            
+            .benefits-section {
+                padding: 0 40px;
+                margin-bottom: 20px;
             }
             
             .benefits-grid {
-                grid-template-columns: 1fr;
-                gap: 8px;
-                justify-items: center;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px 16px;
+                padding: 20px;
             }
             
             .benefit-item {
-                font-size: 13px;
+                font-size: 14px;
+            }
+            
+            .check-icon {
+                font-size: 16px;
+                margin-right: 8px;
+            }
+            
+            .price-section {
+                padding: 24px 40px;
+                margin: 0 40px 20px;
+            }
+            
+            .discount-badge {
+                font-size: 12px;
+                padding: 6px 16px;
             }
             
             .price-new {
-                font-size: 28px;
+                font-size: 36px;
+            }
+            
+            .price-old {
+                font-size: 20px;
+            }
+            
+            .timer-unit {
+                padding: 10px 12px;
+                min-width: 50px;
             }
             
             .timer-number {
-                font-size: 16px;
+                font-size: 20px;
+            }
+            
+            .timer-label {
+                font-size: 10px;
+            }
+            
+            .cta-section {
+                padding: 0 40px 30px;
             }
             
             button {
-                font-size: 18px;
-                padding: 18px 40px;
+                font-size: 20px;
+                padding: 20px 50px;
+            }
+            
+            .code-badge {
+                font-size: 12px !important;
+                padding: 6px 16px !important;
+            }
+        }
+
+        /* Dla bardzo dużych kontenerów 1000px+ */
+        @media (min-width: 1000px) {
+            .header-section {
+                padding: 40px 60px 30px;
+            }
+            
+            .fire-icon {
+                font-size: 38px;
+            }
+            
+            h1 {
+                font-size: 38px;
+            }
+            
+            .subheadline {
+                font-size: 20px;
+                margin: 12px 0 25px 0;
+            }
+            
+            .social-proof, .price-section {
+                margin-left: 60px;
+                margin-right: 60px;
+            }
+            
+            .benefits-section {
+                padding: 0 60px;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 16px 20px;
+                padding: 30px;
+            }
+            
+            .benefit-item {
+                font-size: 16px;
+            }
+            
+            .price-new {
+                font-size: 42px;
+            }
+            
+            .timer-number {
+                font-size: 24px;
+            }
+            
+            .cta-section {
+                padding: 0 60px 40px;
+            }
+            
+            button {
+                font-size: 22px;
+                padding: 24px 60px;
             }
         }
 
@@ -435,17 +561,11 @@
     <div class="container">
         <!-- Header -->
         <div class="header-section">
-            <div class="fire-icon">🔥</div>
-            <div class="urgency-badge">⚡ Oferta Limitowana</div>
-            <h1>Stwórz Wymarzoną Strefę Ogniska!</h1>
+            <div class="headline-container">
+                <span class="fire-icon">🔥</span>
+                <h1>Stwórz Wymarzoną Strefę Ogniska!</h1>
+            </div>
             <p class="subheadline">20 gotowych projektów + kompletny przewodnik realizacji</p>
-        </div>
-
-        <!-- Social Proof -->
-        <div class="social-proof">
-            <div class="stars">★★★★★</div>
-            <div class="social-text"><strong>135 właścicieli ogrodów</strong> już stworzyło swoją idealną strefę!</div>
-            <div class="testimonial">"Zaoszczędziłem 3000 zł dzięki tym projektom!" - Marek K.</div>
         </div>
 
         <!-- Benefits -->
@@ -472,6 +592,13 @@
                     <span>Lista materiałów</span>
                 </div>
             </div>
+        </div>
+
+        <!-- Social Proof -->
+        <div class="social-proof">
+            <div class="stars">★★★★★</div>
+            <div class="social-text"><strong>135 właścicieli ogrodów</strong> już stworzyło swoją idealną strefę!</div>
+            <div class="testimonial">"Zaoszczędziłem 3000 zł dzięki tym projektom!" - Marek K.</div>
         </div>
 
         <!-- Price & Timer -->
