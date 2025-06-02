@@ -29,7 +29,6 @@
             margin: 0;
             background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 100%);
             border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             color: white;
             position: relative;
             overflow: hidden;
@@ -89,6 +88,7 @@
             margin: 0 16px 12px;
             border-left: 3px solid #4CAF50;
             font-size: 10px;
+            text-align: center;
         }
 
         .stars {
@@ -112,6 +112,7 @@
         .benefits-section {
             padding: 0 16px;
             margin-bottom: 12px;
+            text-align: center;
         }
 
         .benefits-grid {
@@ -121,6 +122,7 @@
             background: rgba(255, 255, 255, 0.08);
             padding: 8px;
             border-radius: 8px;
+            justify-items: center;
         }
 
         .benefit-item {
@@ -129,6 +131,8 @@
             font-size: 9px;
             color: #e0e0e0;
             line-height: 1.2;
+            justify-content: center;
+            text-align: center;
         }
 
         .check-icon {
@@ -146,17 +150,19 @@
             margin: 0 16px 12px;
             border-radius: 10px;
             border: 1px solid #ff8c42;
+            text-align: center;
         }
 
         .price-row {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
+            gap: 8px;
             margin-bottom: 8px;
         }
 
         .price-left {
-            flex: 1;
+            text-align: center;
         }
 
         .discount-badge {
@@ -174,6 +180,7 @@
             display: flex;
             align-items: baseline;
             gap: 6px;
+            justify-content: center;
         }
 
         .price-old {
@@ -192,6 +199,7 @@
             display: flex;
             gap: 4px;
             align-items: center;
+            justify-content: center;
         }
 
         .timer-unit {
@@ -335,6 +343,7 @@
             .benefits-grid {
                 grid-template-columns: 1fr;
                 gap: 8px;
+                justify-items: center;
             }
             
             .benefit-item {
@@ -377,6 +386,7 @@
                 grid-template-columns: 1fr;
                 gap: 2px;
                 padding: 6px;
+                justify-items: center;
             }
             
             .benefit-item {
@@ -386,6 +396,11 @@
             .price-section {
                 padding: 8px 12px;
                 margin: 0 12px 8px;
+            }
+            
+            .price-section .code-badge {
+                font-size: 7px !important;
+                padding: 2px 6px !important;
             }
             
             .price-new {
@@ -413,11 +428,6 @@
                 padding: 10px 16px;
                 font-size: 12px;
             }
-            
-            .code-badge {
-                font-size: 8px;
-                padding: 4px 8px;
-            }
         }
     </style>
 </head>
@@ -434,7 +444,7 @@
         <!-- Social Proof -->
         <div class="social-proof">
             <div class="stars">★★★★★</div>
-            <div class="social-text"><strong>847 właścicieli ogrodów</strong> już stworzyło swoją idealną strefę!</div>
+            <div class="social-text"><strong>135 właścicieli ogrodów</strong> już stworzyło swoją idealną strefę!</div>
             <div class="testimonial">"Zaoszczędziłem 3000 zł dzięki tym projektom!" - Marek K.</div>
         </div>
 
@@ -473,6 +483,7 @@
                         <span class="price-old">400,00 zł</span>
                         <span class="price-new">280,00 zł</span>
                     </div>
+                    <div class="code-badge" style="margin-top: 4px; font-size: 9px; padding: 3px 8px;">🎯 Kod: "OGNISKO" - 30% TANIEJ</div>
                 </div>
                 <div class="timer">
                     <div class="timer-unit">
@@ -485,11 +496,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Code -->
-        <div class="code-section">
-            <div class="code-badge">🎯 Kod: "OGNISKO" - 30% TANIEJ</div>
         </div>
 
         <!-- CTA -->
