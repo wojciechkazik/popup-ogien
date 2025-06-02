@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Popup - Strefa Paleniska</title>
     <style>
-        /* Reset marginesów, paddingów i ustawienie box-sizing - WZOROWANE NA KALKULATORZE */
+        /* Reset marginesów, paddingów i ustawienie box-sizing */
         html, body {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             overflow-x: hidden;
+            height: auto;
         }
         *, *::before, *::after {
             box-sizing: inherit;
@@ -19,7 +20,7 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #FFFFFF;
-            padding: 10px;
+            padding: 8px;
         }
 
         .container {
@@ -27,66 +28,46 @@
             width: 100%;
             margin: 0;
             background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 100%);
-            padding: 25px 20px 20px;
-            border-radius: 15px;
-            /* Dodany cień dookoła - WZOROWANE NA KALKULATORZE */
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             color: white;
-            text-align: center;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
-        .fire-animation {
-            position: absolute;
-            top: -40px;
-            right: -20px;
-            width: 80px;
-            height: 80px;
-            opacity: 0.1;
-        }
-
-        .flame {
-            width: 40px;
-            height: 55px;
-            background: radial-gradient(circle, #ff6b35 0%, #ff4500 50%, #cc3300 100%);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            animation: flicker 2s infinite alternate;
+        /* Header Section */
+        .header-section {
+            padding: 16px 16px 8px;
+            text-align: center;
             position: relative;
         }
 
-        .flame::before {
-            content: '';
-            position: absolute;
-            top: 8px;
-            left: 10px;
-            width: 20px;
-            height: 35px;
-            background: radial-gradient(circle, #ffaa44 0%, #ff6600 100%);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            animation: flicker 1.5s infinite alternate;
+        .fire-icon {
+            display: inline-block;
+            font-size: 24px;
+            margin-bottom: 8px;
+            animation: pulse 2s infinite;
         }
 
         .urgency-badge {
             background: linear-gradient(45deg, #ff4444, #cc0000);
             color: white;
-            padding: 6px 15px;
-            border-radius: 20px;
+            padding: 4px 12px;
+            border-radius: 15px;
             font-size: 10px;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 1px;
             display: inline-block;
-            margin-bottom: 15px;
-            animation: pulse 2s infinite;
-            box-shadow: 0 3px 10px rgba(255, 68, 68, 0.4);
+            margin-bottom: 8px;
         }
 
         h1 {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
-            margin-bottom: 10px;
-            line-height: 1.2;
+            margin: 0 0 6px 0;
+            line-height: 1.1;
             background: linear-gradient(45deg, #ff8c42, #ffa500);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -94,372 +75,429 @@
         }
 
         .subheadline {
-            font-size: 14px;
+            font-size: 12px;
             color: #cccccc;
-            margin-bottom: 20px;
-            line-height: 1.3;
+            margin: 0 0 12px 0;
+            line-height: 1.2;
         }
 
-        .benefits {
-            text-align: left;
-            margin: 15px 0;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
+        /* Social Proof - Kompakt */
+        .social-proof {
+            background: rgba(76, 175, 80, 0.15);
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin: 0 16px 12px;
+            border-left: 3px solid #4CAF50;
+            font-size: 10px;
+        }
+
+        .stars {
+            color: #ffa500;
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+
+        .social-text {
+            color: #e0e0e0;
+            margin-bottom: 2px;
+        }
+
+        .testimonial {
+            color: #ccc;
+            font-style: italic;
+            font-size: 9px;
+        }
+
+        /* Benefits Grid - 2 kolumny */
+        .benefits-section {
+            padding: 0 16px;
+            margin-bottom: 12px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 8px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 8px;
+            border-radius: 8px;
         }
 
         .benefit-item {
             display: flex;
             align-items: center;
-            margin-bottom: 8px;
-            font-size: 12px;
+            font-size: 9px;
             color: #e0e0e0;
-        }
-
-        .benefit-item:last-child {
-            margin-bottom: 0;
+            line-height: 1.2;
         }
 
         .check-icon {
             color: #4CAF50;
-            margin-right: 10px;
-            font-size: 14px;
+            margin-right: 4px;
+            font-size: 10px;
             font-weight: bold;
+            flex-shrink: 0;
         }
 
+        /* Price Section - Horizontal Layout */
         .price-section {
-            background: rgba(255, 140, 66, 0.2);
-            padding: 15px;
-            border-radius: 12px;
-            margin: 15px 0;
-            border: 2px solid #ff8c42;
+            background: rgba(255, 140, 66, 0.15);
+            padding: 12px 16px;
+            margin: 0 16px 12px;
+            border-radius: 10px;
+            border: 1px solid #ff8c42;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .price-left {
+            flex: 1;
         }
 
         .discount-badge {
             background: #ff4444;
             color: white;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 8px;
             font-weight: bold;
             display: inline-block;
-            margin-bottom: 8px;
-            animation: wiggle 3s infinite;
+            margin-bottom: 4px;
+        }
+
+        .price-display {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
         }
 
         .price-old {
             text-decoration: line-through;
             color: #999;
-            font-size: 16px;
-            margin-right: 8px;
+            font-size: 12px;
         }
 
         .price-new {
             color: #4CAF50;
-            font-size: 26px;
+            font-size: 18px;
             font-weight: bold;
-        }
-
-        .savings {
-            color: #4CAF50;
-            font-size: 14px;
-            margin-top: 6px;
-            font-weight: bold;
-        }
-
-        /* BUTTON STYLE WZOROWANY NA KALKULATORZE */
-        button {
-            width: 100%;
-            padding: 15px 30px;
-            background: linear-gradient(45deg, #ff6b35, #ff4500);
-            color: white;
-            font-weight: bold;
-            border: none;
-            border-radius: 40px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-            margin: 15px 0 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(255, 107, 53, 0.6);
         }
 
         .timer {
             display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 12px 0;
+            gap: 4px;
+            align-items: center;
         }
 
         .timer-unit {
             text-align: center;
             background: rgba(255, 255, 255, 0.1);
-            padding: 8px;
-            border-radius: 8px;
-            min-width: 40px;
+            padding: 4px 6px;
+            border-radius: 6px;
+            min-width: 24px;
         }
 
         .timer-number {
-            font-size: 16px;
+            font-size: 12px;
             font-weight: bold;
             color: #ff8c42;
             display: block;
+            line-height: 1;
         }
 
         .timer-label {
-            font-size: 9px;
+            font-size: 7px;
             color: #ccc;
             text-transform: uppercase;
+            line-height: 1;
         }
 
-        .social-proof {
-            background: rgba(76, 175, 80, 0.2);
-            padding: 12px;
+        /* Code Section */
+        .code-section {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .code-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 6px 12px;
             border-radius: 8px;
-            margin: 15px 0;
-            border-left: 3px solid #4CAF50;
-        }
-
-        .social-proof-text {
-            font-size: 12px;
-            color: #e0e0e0;
-            margin-bottom: 6px;
-        }
-
-        .stars {
-            color: #ffa500;
-            font-size: 14px;
-            margin-bottom: 4px;
-        }
-
-        .testimonial {
             font-size: 10px;
-            color: #ccc;
-            font-style: italic;
+            color: #ffa500;
+            font-weight: bold;
+            display: inline-block;
+            border: 1px solid rgba(255,165,0,0.3);
         }
 
-        @keyframes flicker {
-            0% { transform: scale(1) rotate(-2deg); }
-            100% { transform: scale(1.1) rotate(2deg); }
+        /* CTA Section */
+        .cta-section {
+            padding: 0 16px 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 20px;
+            background: linear-gradient(45deg, #ff6b35, #ff4500);
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
         }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.1); }
         }
 
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(2deg); }
-            75% { transform: rotate(-2deg); }
-        }
-
-        /* RESPONSYWNOŚĆ WZOROWANA NA KALKULATORZE */
-        @media (max-width: 480px) {
-            body {
-                padding: 8px;
+        /* Responsywność dla większych urządzeń */
+        @media (min-width: 400px) {
+            .container {
+                border-radius: 20px;
             }
             
-            .container {
-                padding: 18px 12px 12px;
+            .header-section {
+                padding: 20px 20px 12px;
             }
             
             h1 {
-                font-size: 18px;
-            }
-            
-            .timer {
-                gap: 6px;
-            }
-            
-            .timer-unit {
-                min-width: 32px;
-                padding: 5px;
-            }
-        }
-
-                    @media (max-width: 300px) {
-            body {
-                padding: 5px;
-            }
-            
-            .container {
-                padding: 15px 10px 10px;
-                border-radius: 12px;
-            }
-            
-            h1 {
-                font-size: 16px;
-                margin-bottom: 8px;
+                font-size: 24px;
             }
             
             .subheadline {
-                font-size: 11px;
-                margin-bottom: 12px;
-            }
-            
-            .urgency-badge {
-                padding: 4px 10px;
-                font-size: 9px;
-                margin-bottom: 10px;
-            }
-            
-            .benefits {
-                padding: 10px;
-                margin: 10px 0;
-            }
-            
-            .benefit-item {
-                font-size: 10px;
-                margin-bottom: 6px;
-            }
-            
-            .check-icon {
-                margin-right: 6px;
-                font-size: 12px;
-            }
-            
-            .price-section {
-                padding: 10px;
-                margin: 10px 0;
-            }
-            
-            .price-section div[style*="font-size: 11px"] {
-                font-size: 9px !important;
-                padding: 6px !important;
-            }
-            
-            .price-new {
-                font-size: 22px;
-            }
-            
-            .price-old {
                 font-size: 14px;
             }
             
-            .savings {
-                font-size: 12px;
+            .benefits-grid {
+                padding: 12px;
             }
             
-            .timer {
-                gap: 4px;
-                margin: 8px 0;
+            .benefit-item {
+                font-size: 11px;
+            }
+            
+            .price-section {
+                padding: 16px 20px;
+                margin: 0 20px 16px;
+            }
+            
+            .price-new {
+                font-size: 24px;
             }
             
             .timer-unit {
-                min-width: 28px;
-                padding: 4px;
+                padding: 6px 8px;
+                min-width: 30px;
             }
             
             .timer-number {
                 font-size: 14px;
             }
             
-            .timer-label {
-                font-size: 8px;
+            .cta-section {
+                padding: 0 20px 20px;
             }
             
             button {
-                padding: 10px 20px;
+                padding: 16px 30px;
+                font-size: 16px;
+            }
+        }
+
+        /* Dla bardzo dużych kontenerów */
+        @media (min-width: 600px) {
+            h1 {
+                font-size: 28px;
+                margin-bottom: 8px;
+            }
+            
+            .subheadline {
+                font-size: 16px;
+                margin-bottom: 16px;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .benefit-item {
                 font-size: 13px;
-                margin: 10px 0 8px;
             }
             
-            .social-proof {
-                padding: 8px;
-                margin: 10px 0;
+            .price-new {
+                font-size: 28px;
             }
             
-            .social-proof-text {
+            .timer-number {
+                font-size: 16px;
+            }
+            
+            button {
+                font-size: 18px;
+                padding: 18px 40px;
+            }
+        }
+
+        /* Dla ekstremalnie małych urządzeń */
+        @media (max-width: 280px) {
+            body {
+                padding: 4px;
+            }
+            
+            .header-section {
+                padding: 12px 12px 6px;
+            }
+            
+            h1 {
+                font-size: 16px;
+            }
+            
+            .subheadline {
                 font-size: 10px;
             }
             
-            .testimonial {
-                font-size: 9px;
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 2px;
+                padding: 6px;
             }
             
-            .stars {
+            .benefit-item {
+                font-size: 8px;
+            }
+            
+            .price-section {
+                padding: 8px 12px;
+                margin: 0 12px 8px;
+            }
+            
+            .price-new {
+                font-size: 16px;
+            }
+            
+            .timer-unit {
+                padding: 3px 4px;
+                min-width: 20px;
+            }
+            
+            .timer-number {
+                font-size: 10px;
+            }
+            
+            .timer-label {
+                font-size: 6px;
+            }
+            
+            .cta-section {
+                padding: 0 12px 12px;
+            }
+            
+            button {
+                padding: 10px 16px;
                 font-size: 12px;
+            }
+            
+            .code-badge {
+                font-size: 8px;
+                padding: 4px 8px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="fire-animation">
-            <div class="flame"></div>
+        <!-- Header -->
+        <div class="header-section">
+            <div class="fire-icon">🔥</div>
+            <div class="urgency-badge">⚡ Oferta Limitowana</div>
+            <h1>Stwórz Wymarzoną Strefę Ogniska!</h1>
+            <p class="subheadline">20 gotowych projektów + kompletny przewodnik realizacji</p>
         </div>
-        
-        <div class="urgency-badge">⚡ Oferta Limitowana</div>
-        
-        <h1>Stwórz Wymarzoną Strefę Ogniska!</h1>
-        <p class="subheadline">20 gotowych projektów + kompletny przewodnik realizacji</p>
-        
+
+        <!-- Social Proof -->
         <div class="social-proof">
             <div class="stars">★★★★★</div>
-            <div class="social-proof-text"><strong>847 właścicieli ogrodów</strong> już stworzyło swoją idealną strefę!</div>
-            <div class="testimonial">"Dzięki tym projektom zaoszczędziłem 3000 zł i uniknąłem kosztownych błędów!" - Marek K.</div>
+            <div class="social-text"><strong>847 właścicieli ogrodów</strong> już stworzyło swoją idealną strefę!</div>
+            <div class="testimonial">"Zaoszczędziłem 3000 zł dzięki tym projektom!" - Marek K.</div>
         </div>
-        
-        <div class="benefits">
-            <div class="benefit-item">
-                <span class="check-icon">✓</span>
-                <span>20 gotowych projektów palenisk</span>
-            </div>
-            <div class="benefit-item">
-                <span class="check-icon">✓</span>
-                <span>Szczegółowe plany techniczne</span>
-            </div>
-            <div class="benefit-item">
-                <span class="check-icon">✓</span>
-                <span>Kalkulacja kosztów dla każdego projektu</span>
-            </div>
-            <div class="benefit-item">
-                <span class="check-icon">✓</span>
-                <span>Przewodnik krok po kroku</span>
-            </div>
-            <div class="benefit-item">
-                <span class="check-icon">✓</span>
-                <span>Lista materiałów i narzędzi</span>
+
+        <!-- Benefits -->
+        <div class="benefits-section">
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <span class="check-icon">✓</span>
+                    <span>20 gotowych projektów</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="check-icon">✓</span>
+                    <span>Plany techniczne</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="check-icon">✓</span>
+                    <span>Kalkulacja kosztów</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="check-icon">✓</span>
+                    <span>Przewodnik realizacji</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="check-icon">✓</span>
+                    <span>Lista materiałów</span>
+                </div>
             </div>
         </div>
-        
+
+        <!-- Price & Timer -->
         <div class="price-section">
-            <div class="discount-badge">🔥 TYLKO 15 MINUT!</div>
-            <div>
-                <span class="price-old">400,00 zł</span>
-                <span class="price-new">280,00 zł</span>
-            </div>
-            <div class="savings">💰 Oszczędzasz 120 zł!</div>
-            <div style="background: rgba(255,255,255,0.1); padding: 8px; border-radius: 8px; margin-top: 10px; font-size: 11px; color: #ffa500; font-weight: bold;">
-                🎯 Kod rabatowy: "OGNISKO" - 30% TANIEJ
-            </div>
-            
-            <div class="timer">
-                <div class="timer-unit">
-                    <span class="timer-number" id="minutes">15</span>
-                    <span class="timer-label">min</span>
+            <div class="price-row">
+                <div class="price-left">
+                    <div class="discount-badge">🔥 TYLKO 15 MINUT!</div>
+                    <div class="price-display">
+                        <span class="price-old">400,00 zł</span>
+                        <span class="price-new">280,00 zł</span>
+                    </div>
                 </div>
-                <div class="timer-unit">
-                    <span class="timer-number" id="seconds">00</span>
-                    <span class="timer-label">sek</span>
+                <div class="timer">
+                    <div class="timer-unit">
+                        <span class="timer-number" id="minutes">15</span>
+                        <span class="timer-label">min</span>
+                    </div>
+                    <div class="timer-unit">
+                        <span class="timer-number" id="seconds">00</span>
+                        <span class="timer-label">sek</span>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <button onclick="handlePurchase()">
-            🔥 Pobieram za 280 zł
-        </button>
+
+        <!-- Code -->
+        <div class="code-section">
+            <div class="code-badge">🎯 Kod: "OGNISKO" - 30% TANIEJ</div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <button onclick="handlePurchase()">
+                🔥 Pobieram za 280 zł
+            </button>
+        </div>
     </div>
 
     <script>
@@ -499,7 +537,7 @@
             window.open('https://www.naffy.io/magdalena-kazimierowicz/20-gotowych-projektow-strefy-paleniska-do-kazdego-ogrodu-5-bonusowych-aranzacji-stref-apt', '_blank');
         }
 
-        // FUNKCJA WYSYŁANIA WYSOKOŚCI - WZOROWANA NA KALKULATORZE
+        // FUNKCJA WYSYŁANIA WYSOKOŚCI
         function sendHeightToParent() {
             const bodyHeight = document.body.scrollHeight;
             const docHeight = document.documentElement.scrollHeight;
@@ -507,13 +545,13 @@
             window.parent.postMessage({ iframeHeight: height }, '*');
         }
 
-        // WYWOŁANIA WZOROWANE NA KALKULATORZE
+        // WYWOŁANIA
         window.addEventListener('load', sendHeightToParent);
         window.addEventListener('resize', sendHeightToParent);
 
         // Wysyłanie wysokości także po kliknięciach
         document.addEventListener('click', function() {
-            setTimeout(sendHeightToParent, 300);
+            setTimeout(sendHeightToParent, 100);
         });
     </script>
 </body>
